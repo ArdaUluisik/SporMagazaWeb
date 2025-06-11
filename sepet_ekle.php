@@ -13,7 +13,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["urun_id"], $_POST["ade
     $urun_id = (int)$_POST["urun_id"];
     $adet = (int)$_POST["adet"];
 
-    // Müşteriye ait sepet var mı kontrol et, yoksa oluştur
     $stmt = $baglanti->prepare("SELECT SEPET_ID FROM SEPET WHERE MUSTERI_ID = ?");
     $stmt->bind_param("i", $musteri_id);
     $stmt->execute();
@@ -29,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["urun_id"], $_POST["ade
         $sepet_id = $stmt_insert->insert_id;
     }
 
-    // Sepete ürün ekle
+    
     try {
         $stmt = $baglanti->prepare("CALL SEPET_EKLE(?, ?, ?)");
         $stmt->bind_param("iii", $sepet_id, $urun_id, $adet);

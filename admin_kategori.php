@@ -25,7 +25,7 @@ if (!isset($_SESSION["admin_id"])) {
 
 <h2>Kategoriler</h2>
 
-<!-- Flash mesaj -->
+
 <?php
 if (isset($_SESSION["flash"])) {
     echo "<p class='mesaj'>" . $_SESSION["flash"] . "</p>";
@@ -33,7 +33,7 @@ if (isset($_SESSION["flash"])) {
 }
 ?>
 
-<!-- Kategori Ekleme Formu -->
+
 <form method="POST" action="admin_kategori.php">
     <input type="text" name="kategori_adi" placeholder="Kategori Adı" required>
     <button type="submit">Ekle</button>
@@ -43,7 +43,7 @@ if (isset($_SESSION["flash"])) {
 </a>
 
 
-<!-- Kategori Listesi -->
+
 <?php
 $kategoriler = $baglanti->query("SELECT * FROM KATEGORI");
 if ($kategoriler && $kategoriler->num_rows > 0) {
@@ -67,7 +67,7 @@ if ($kategoriler && $kategoriler->num_rows > 0) {
 </html>
 
 <?php
-// Kategori ekleme işlemi en sonda yapılır (sayfa yukarıda formu ve listeyi gösterir)
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $kategori_adi = trim($_POST["kategori_adi"]);
     $admin_id     = $_SESSION["admin_id"];
@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("is", $admin_id, $kategori_adi);
         $stmt->execute();
 
-        // OUT mesajını al
+    
         $result = $baglanti->query("SELECT @mesaj AS mesaj");
         $row = $result->fetch_assoc();
         $_SESSION["flash"] = $row["mesaj"];
@@ -86,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["flash"] = "Kategori adı boş olamaz.";
     }
 
-    // Sayfa yenile
+
     header("Location: admin_kategori.php");
     exit;
 }

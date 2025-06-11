@@ -1,4 +1,3 @@
-<!-- ust_menu.php -->
 <style>
     .navbar {
         background-color: #333;

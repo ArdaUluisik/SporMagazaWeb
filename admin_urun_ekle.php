@@ -10,10 +10,10 @@ if (!isset($_SESSION["admin_id"])) {
 $admin_id = $_SESSION["admin_id"];
 $mesaj = "";
 
-// Kategori listesini çek
+
 $kategori_sorgu = $baglanti->query("SELECT KATEGORI_ID, KATEGORI_ADI FROM KATEGORI");
 
-// Ürün silme işlemi
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["sil_id"])) {
     $sil_id = (int)$_POST["sil_id"];
     $stmt_sil = $baglanti->prepare("CALL URUN_SIL(?, ?)");
@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["sil_id"])) {
     $mesaj = "Ürün silindi.";
 }
 
-// Ürün ekleme işlemi
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["urun_adi"])) {
     $urun_adi = trim($_POST["urun_adi"]);
     $fiyat = (int)$_POST["fiyat"];
@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["urun_adi"])) {
     }
 }
 
-// Tüm ürünleri çek
+
 $urunler = $baglanti->query("
     SELECT U.URUN_ID, U.URUN_ADI, U.FIYAT, K.KATEGORI_ADI
     FROM URUN U

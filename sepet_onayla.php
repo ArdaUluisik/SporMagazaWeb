@@ -16,10 +16,10 @@ $odeme_id = 1; // Sabit örnek ödeme ID
 $mesaj = "";
 
 try {
-    // Veritabanı bağlantısında karakter seti sorunlarını önlemek için:
+    
     $baglanti->set_charset("utf8mb4");
 
-    // Sipariş oluşturma prosedürünü çağır
+    
     $stmt = $baglanti->prepare("CALL SIPARIS_OLUSTUR(?, ?)");
     $stmt->bind_param("ii", $musteri_id, $odeme_id);
     $stmt->execute();
@@ -27,7 +27,7 @@ try {
 
     $mesaj = "✅ Sipariş başarıyla oluşturuldu!";
 } catch (mysqli_sql_exception $e) {
-    // Hata oluşursa detaylı mesaj göster
+   
     $mesaj = "❌ Sipariş oluşturulurken hata: " . $e->getMessage();
 }
 ?>

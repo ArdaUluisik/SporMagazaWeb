@@ -79,7 +79,6 @@ try {
         </tr>
     </table>
 
-    <!-- Sepeti Temizle Butonu -->
     <div class="temizle-btn">
         <form action="sepet_sil.php" method="post" onsubmit="return confirm('Sepeti silmek istediğinize emin misiniz?');">
             <button type="submit">Sepeti Temizle</button>

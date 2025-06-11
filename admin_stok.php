@@ -2,7 +2,7 @@
 session_start();
 include("baglanti.php");
 
-// Admin kontrolü
+
 if (!isset($_SESSION["admin_id"])) {
     header("Location: admin_giris.php");
     exit;
@@ -10,14 +10,14 @@ if (!isset($_SESSION["admin_id"])) {
 
 $admin_id = $_SESSION["admin_id"];
 
-// Form gönderildiyse
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["urun_id"], $_POST["stok_adeti"], $_POST["fiyat"])) {
     $urun_id = (int)$_POST["urun_id"];
     $stok_adeti = (int)$_POST["stok_adeti"];
     $fiyat = (int)$_POST["fiyat"];
 
     try {
-        // ✅ Stok güncelle
+       
         $stmt_stok = $baglanti->prepare("CALL STOK_GUNCELLE(?, ?, ?)");
         $stmt_stok->bind_param("iii", $urun_id, $stok_adeti, $admin_id);
         $stmt_stok->execute();
@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["urun_id"], $_POST["sto
         } while ($stmt_stok->more_results() && $stmt_stok->next_result());
         $stmt_stok->close();
 
-        // ✅ Fiyat güncelle
+        
         $stmt_fiyat = $baglanti->prepare("CALL URUN_GUNCELLE(?, ?, ?)");
         $stmt_fiyat->bind_param("iii", $urun_id, $fiyat, $admin_id);
         $stmt_fiyat->execute();
@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["urun_id"], $_POST["sto
     exit;
 }
 
-// Listele
+
 try {
     $stmt = $baglanti->prepare("CALL STOK_BILGISI(?)");
     $stmt->bind_param("i", $admin_id);

@@ -8,26 +8,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $eposta = $_POST["eposta"];
     $sifre = $_POST["sifre"];
 
-    // OUT parametreler için SQL değişkenlerini tanımla
+    
     $baglanti->query("SET @mesaj = ''");
     $baglanti->query("SET @musteri_id = NULL");
 
-    // Prosedürü çağır
+    
     $stmt = $baglanti->prepare("CALL GIRIS_YAP(?, ?, @mesaj, @musteri_id)");
     $stmt->bind_param("ss", $eposta, $sifre);
     $stmt->execute();
     $stmt->close();
 
-    // OUT parametreleri oku
+    
     $sonuc = $baglanti->query("SELECT @mesaj AS mesaj, @musteri_id AS musteri_id");
     $row = $sonuc->fetch_assoc();
 
     if ($row["mesaj"] == "Giriş Başarılı" && !is_null($row["musteri_id"])) {
-        // Oturum bilgilerini kaydet
+        
         $_SESSION["eposta"] = $eposta;
         $_SESSION["musteri_id"] = $row["musteri_id"];
     
-        // Anasayfaya yönlendir
+        
         header("Location: anasayfa.php");
         exit;
     } else {

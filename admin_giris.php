@@ -14,11 +14,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("ss", $eposta, $sifre);
     $stmt->execute();
 
-    // Prosedür sonucu tüketilmeli
     do {
         if ($sonuc = $stmt->get_result()) {
             while ($satir = $sonuc->fetch_assoc()) {
-                // varsa işlenir
+                
             }
             $sonuc->free();
         }
@@ -26,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $stmt->close();
 
-    // OUT parametreyi oku
+   
     $sonuc = $baglanti->query("SELECT @mesaj AS mesaj");
     $row = $sonuc->fetch_assoc();
     $mesaj = $row["mesaj"];

@@ -10,7 +10,7 @@ if (!isset($_SESSION["musteri_id"]) || !isset($_SESSION["eposta"])) {
 $mesaj = "";
 $eposta = $_SESSION["eposta"];
 
-// Hesap Silme
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["sil_sifre"])) {
     $sifre = $_POST["sil_sifre"];
 
@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["sil_sifre"])) {
     }
 }
 
-// Şifre Değiştirme
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["eski_sifre"], $_POST["yeni_sifre"])) {
     $eski = $_POST["eski_sifre"];
     $yeni = $_POST["yeni_sifre"];
@@ -80,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["eski_sifre"], $_POST["
     <p class="message"><?= htmlspecialchars($mesaj) ?></p>
 <?php endif; ?>
 
-<!-- Şifre Değiştirme Formu -->
+
 <form method="post">
     <h3>Şifre Değiştir</h3>
     <input type="password" name="eski_sifre" placeholder="Eski Şifre" required>
@@ -88,7 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["eski_sifre"], $_POST["
     <button type="submit">Şifreyi Değiştir</button>
 </form>
 
-<!-- Hesap Silme Formu -->
+
 <form method="post" onsubmit="return confirm('Hesabınızı silmek istediğinize emin misiniz?');">
     <h3>Hesabı Sil</h3>
     <input type="password" name="sil_sifre" placeholder="Şifrenizi Girin" required>

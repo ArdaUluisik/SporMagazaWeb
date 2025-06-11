@@ -8,10 +8,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $eposta = $_POST['eposta'];
     $sifre = $_POST['sifre'];
 
-    // OUT parametre için SQL değişkeni tanımla
+    
     mysqli_query($baglanti, "SET @sonuc = ''");
 
-    // Prosedürü çağır
+    
     $baglanti->query("SET @sonuc = ''");
 
 $baglanti->query("SET @sonuc = ''");
@@ -28,7 +28,7 @@ echo "<p>" . $row['mesaj'] . "</p>";
 
 
 
-    // OUT sonucunu oku
+   
     $sonuc = mysqli_query($baglanti, "SELECT @sonuc AS mesaj");
     $row = mysqli_fetch_assoc($sonuc);
     $mesaj = $row['mesaj'];

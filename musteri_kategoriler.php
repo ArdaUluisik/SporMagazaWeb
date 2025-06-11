@@ -5,7 +5,7 @@ include("baglanti.php");
 $mesaj = "";
 
 try {
-    // Prosedürü çağır
+
     $stmt = $baglanti->prepare("CALL MUSTERI_KATEGORILERI()");
     $stmt->execute();
     $sonuc = $stmt->get_result();

@@ -2,7 +2,7 @@
 session_start();
 include("baglanti.php");
 
-// Admin giriş kontrolü (varsayılan olarak oturumda admin_id var mı diye bakıyoruz)
+
 if (!isset($_SESSION["admin_id"])) {
     header("Location: admin_giris.php");
     exit;

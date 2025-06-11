@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Admin giriş kontrolü
+
 if (!isset($_SESSION['admin_id'])) {
     header("Location: admin_giris.php");
     exit;

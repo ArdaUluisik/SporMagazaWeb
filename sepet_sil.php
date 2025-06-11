@@ -11,7 +11,7 @@ $musteri_id = $_SESSION["musteri_id"];
 $mesaj = "";
 
 try {
-    // Müşteriye ait SEPET_ID'yi al
+   
     $stmt = $baglanti->prepare("SELECT SEPET_ID FROM SEPET WHERE MUSTERI_ID = ?");
     $stmt->bind_param("i", $musteri_id);
     $stmt->execute();
@@ -21,12 +21,12 @@ try {
         $row = $result->fetch_assoc();
         $sepet_id = $row["SEPET_ID"];
 
-        // SEPET_SIL prosedürünü çağır
+       
         $stmt_sil = $baglanti->prepare("CALL SEPET_SIL(?)");
         $stmt_sil->bind_param("i", $sepet_id);
         $stmt_sil->execute();
 
-        // Yönlendir: sepet.php (veya mesaj ver)
+    
         header("Location: sepet.php");
         exit;
     } else {

@@ -5,7 +5,7 @@
 session_start();
 include("baglanti.php");
 
-// Giriş kontrolü
+
 if (!isset($_SESSION["admin_id"])) {
     echo "Bu sayfayı görüntülemek için giriş yapmalısınız.";
     exit;
@@ -13,7 +13,7 @@ if (!isset($_SESSION["admin_id"])) {
 
 $admin_id = $_SESSION["admin_id"];
 
-// Prosedür çağrısı
+
 $stmt = $baglanti->prepare("CALL BUTUN_MUSTERILER(?)");
 $stmt->bind_param("i", $admin_id);
 
