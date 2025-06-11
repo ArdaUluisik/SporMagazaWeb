@@ -10,28 +10,39 @@ if (!isset($_SESSION["musteri_id"])) {
 $musteri_id = $_SESSION["musteri_id"];
 $mesaj = "";
 
-try {
-    $baglanti->set_charset("utf8mb4");
-
-    
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['odeme_turu'])) {
     $odeme_turu = $_POST['odeme_turu'];
 
-   
-    $odeme_sorgu = $baglanti->prepare("INSERT INTO ODEME (ODEME_TURU) VALUES (?)");
-    $odeme_sorgu->bind_param("s", $odeme_turu);
-    $odeme_sorgu->execute();
-    $odeme_id = $odeme_sorgu->insert_id;
-    $odeme_sorgu->close();
+    try {
+        $baglanti->set_charset("utf8mb4");
 
-   
-    $stmt = $baglanti->prepare("CALL SIPARIS_OLUSTUR(?, ?)");
-    $stmt->bind_param("ii", $musteri_id, $odeme_id);
-    $stmt->execute();
-    $stmt->close();
+        // ODEME_ID'yi al
+        $sorgu = $baglanti->prepare("SELECT ODEME_ID FROM ODEME WHERE ODEME_TURU = ?");
+        $sorgu->bind_param("s", $odeme_turu);
+        $sorgu->execute();
+        $sonuc = $sorgu->get_result();
 
-    $mesaj = "✅ Sipariş başarıyla oluşturuldu!";
-} catch (mysqli_sql_exception $e) {
-    $mesaj = "❌ Sipariş oluşturulurken hata: " . $e->getMessage();
+        if ($satir = $sonuc->fetch_assoc()) {
+            $odeme_id = $satir["ODEME_ID"];
+            $sorgu->close();
+
+            // Sipariş oluştur
+            $stmt = $baglanti->prepare("CALL SIPARIS_OLUSTUR(?, ?)");
+            $stmt->bind_param("ii", $musteri_id, $odeme_id);
+            $stmt->execute();
+            $stmt->close();
+
+            $mesaj = "✅ Sipariş başarıyla oluşturuldu!";
+        } else {
+            $mesaj = "❌ Seçilen ödeme türü bulunamadı!";
+        }
+
+    } catch (mysqli_sql_exception $e) {
+        $mesaj = "❌ Sipariş oluşturulurken hata: " . $e->getMessage();
+    }
+
+} else {
+    $mesaj = "❌ Ödeme türü seçilmedi.";
 }
 ?>
 

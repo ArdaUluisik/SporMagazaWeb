@@ -31,19 +31,28 @@ try {
         th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
         th { background-color: #f2f2f2; }
         h2 { text-align: center; }
-        .temizle-btn {
+        .temizle-btn, .onayla-form {
             text-align: center;
             margin-top: 20px;
         }
-        .temizle-btn button {
+        button {
             padding: 8px 16px;
-            background-color: red;
+            background-color: #007BFF;
             color: white;
             border: none;
             border-radius: 5px;
         }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .temizle-btn button {
+            background-color: red;
+        }
         .temizle-btn button:hover {
             background-color: darkred;
+        }
+        select {
+            padding: 5px;
         }
     </style>
 </head>
@@ -79,26 +88,26 @@ try {
         </tr>
     </table>
 
+    <!-- Sepeti temizleme butonu -->
     <div class="temizle-btn">
         <form action="sepet_sil.php" method="post" onsubmit="return confirm('Sepeti silmek istediğinize emin misiniz?');">
             <button type="submit">Sepeti Temizle</button>
         </form>
     </div>
-    <form action="sepet_onayla.php" method="post">
-    <div style="text-align: center; margin: 20px;">
-        <label for="odeme_turu"><strong>Ödeme Türü:</strong></label>
-        <select name="odeme_turu" id="odeme_turu" required>
-            <option value="">Seçiniz</option>
-            <option value="KREDI KARTI">Kredi Kartı</option>
-            <option value="KAPIDA ODEME">Kapıda Ödeme</option>
-        </select>
-    </div>
-    
-</form>
 
-    <form action="sepet_onayla.php" method="post">
-    <button type="submit">Sepeti Onayla</button>
-</form>
+    <!-- Sepeti onaylama ve ödeme türü seçimi -->
+    <div class="onayla-form">
+        <form action="sepet_onayla.php" method="post">
+            <label for="odeme_turu"><strong>Ödeme Türü:</strong></label>
+            <select name="odeme_turu" id="odeme_turu" required>
+                <option value="">Seçiniz</option>
+                <option value="KREDI KARTI">Kredi Kartı</option>
+                <option value="KAPIDA ODEME">Kapıda Ödeme</option>
+            </select>
+            <br><br>
+            <button type="submit">Sepeti Onayla</button>
+        </form>
+    </div>
 
 <?php endif; ?>
 

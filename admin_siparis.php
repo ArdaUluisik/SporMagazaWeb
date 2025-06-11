@@ -2,13 +2,12 @@
 session_start();
 include("baglanti.php");
 
-
 if (!isset($_SESSION["admin_id"])) {
     header("Location: admin_giris.php");
     exit;
 }
 
-$sorgu = $baglanti->query("CALL ADMIN_SIPARISLER()");
+$sorgu = $baglanti->query("CALL SIPARIS_BILGISI()");
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +17,7 @@ $sorgu = $baglanti->query("CALL ADMIN_SIPARISLER()");
     <title>Tüm Siparişler - Admin Paneli</title>
     <style>
         table {
-            width: 90%;
+            width: 95%;
             margin: 20px auto;
             border-collapse: collapse;
         }
@@ -39,10 +38,11 @@ $sorgu = $baglanti->query("CALL ADMIN_SIPARISLER()");
             <th>Sipariş ID</th>
             <th>Müşteri Adı</th>
             <th>Ürün</th>
+            <th>Kategori</th>
             <th>Adet</th>
             <th>Birim Fiyat</th>
             <th>Ürün Toplam</th>
-           
+            <th>Ödeme Türü</th>
             <th>Tarih</th>
         </tr>
         <?php while ($satir = $sorgu->fetch_assoc()): ?>
@@ -50,10 +50,11 @@ $sorgu = $baglanti->query("CALL ADMIN_SIPARISLER()");
             <td><?= $satir['SIPARIS_ID'] ?></td>
             <td><?= htmlspecialchars($satir['MUSTERI_ADI'] . ' ' . $satir['MUSTERI_SOYAD']) ?></td>
             <td><?= htmlspecialchars($satir['URUN_ADI']) ?></td>
+            <td><?= htmlspecialchars($satir['KATEGORI_ADI']) ?></td>
             <td><?= $satir['ADET'] ?></td>
             <td><?= $satir['FIYAT'] ?>₺</td>
             <td><?= $satir['TOPLAM_URUN_TUTAR'] ?>₺</td>
-           
+            <td><?= htmlspecialchars($satir['ODEME_TURU']) ?></td>
             <td><?= $satir['TARIH'] ?></td>
         </tr>
         <?php endwhile; ?>
