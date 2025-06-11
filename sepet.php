@@ -85,6 +85,18 @@ try {
         </form>
     </div>
     <form action="sepet_onayla.php" method="post">
+    <div style="text-align: center; margin: 20px;">
+        <label for="odeme_turu"><strong>Ödeme Türü:</strong></label>
+        <select name="odeme_turu" id="odeme_turu" required>
+            <option value="">Seçiniz</option>
+            <option value="KREDI KARTI">Kredi Kartı</option>
+            <option value="KAPIDA ODEME">Kapıda Ödeme</option>
+        </select>
+    </div>
+    
+</form>
+
+    <form action="sepet_onayla.php" method="post">
     <button type="submit">Sepeti Onayla</button>
 </form>
 
